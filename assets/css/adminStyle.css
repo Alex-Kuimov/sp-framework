@@ -1,0 +1,26 @@
+.sp-field-textarea{
+	width: 80%;
+	height: 200px;
+}
+
+.sp-fields .sp-field-map-wrap .sp-field-address{
+	width: 70%;
+}
+
+.sp-field-map{
+	margin-top: 10px;
+	width: 90%;
+	height: 400px;
+}
+
+.sp-gallery-metabox-list li {
+	float: left;
+	width: 88px;
+	text-align: center;
+	cursor: move;
+	margin: 5px;
+}
+
+.sp-gallery-metabox-list .sp-image-preview{
+	width: 88px;
+}
