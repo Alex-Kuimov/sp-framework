@@ -104,7 +104,7 @@ class SP_Framework_Post_Type extends SP_Framework_Main {
 				$data = $this->args;
 
 				if ( isset( $data['hidden'] ) && $data['hidden'] === 'y' ) {
-					$current_id       = get_the_ID();
+					$current_id        = get_the_ID();
 					$current_post_type = get_post_type( $current_id );
 
 					if ( $current_post_type === $data['name'] ) {

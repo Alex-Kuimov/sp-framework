@@ -44,7 +44,7 @@ class SP_Framework_User_Meta_Box extends SP_Framework_Main {
 
 			$fields = $args['fields'];
 
-			echo '<h3>' . $args['label'] . '</h3>';
+			echo esc_html( '<h3>' . $args['label'] . '</h3>' );
 
 			echo '<table class="form-table">';
 

@@ -157,7 +157,7 @@ class SP_Framework_Post_Type_Utility {
 			$param_get = '';
 			if ( isset( $_GET ) && ! empty( $_GET ) ) {
 				$array_get = $_GET;
-				$param_get = '?';
+				$param_get .= '?';
 				foreach ( $array_get  as $key => $value ) {
 					$param_get .= $key . '=' . $value . '&';
 				}
@@ -235,7 +235,7 @@ class SP_Framework_Post_Type_Utility {
 
 				$result .= $end_link;
 
-				if ( isset( $args['total'] ) && isset( $args['total'] ) == 'y' ) {
+				if ( isset( $args['total'] ) && isset( $args['total'] ) === 'y' ) {
 
 					if ( isset( $args['wrapper_total_start'] ) ) {
 						$result .= $args['wrapper_total_start'];

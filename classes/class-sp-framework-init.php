@@ -30,7 +30,7 @@ class SP_Framework_Init {
 	}
 
 	public function ya_map( $key = null ) {
-		$this->yaMapKey = $key;
+		$this->ya_map_key = $key;
 
 		add_action(
 			'admin_enqueue_scripts',

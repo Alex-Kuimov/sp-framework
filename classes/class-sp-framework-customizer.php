@@ -81,7 +81,7 @@ class SP_Framework_Customizer extends SP_Framework_Main {
 
 								if ( $fields['type'] === 'checkbox' ) {
 									$sanitize_callback = function( $input ) {
-										if ( $input == 1 ) {
+										if ( $input === 1 ) {
 											return 1;
 										} else {
 											return '';

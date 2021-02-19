@@ -3,10 +3,10 @@ class SP_Framework_Menu {
 
 	public static function get( $menu_name ) {
 		$locations = get_nav_menu_locations();
-		$menu_list  = array();
+		$menu_list = array();
 
 		if ( $locations && isset( $locations[ $menu_name ] ) ) {
-			$menu      = wp_get_nav_menu_object( $locations[ $menu_name ] );
+			$menu       = wp_get_nav_menu_object( $locations[ $menu_name ] );
 			$menu_items = wp_get_nav_menu_items( $menu );
 
 			foreach ( $menu_items as $key => $menu_item ) {
