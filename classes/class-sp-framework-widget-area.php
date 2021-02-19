@@ -3,7 +3,7 @@ class SP_Framework_Widget_Area {
 
 	public $config = array();
 
-	function __construct() {
+	public function __construct() {
 		$this->init();
 	}
 

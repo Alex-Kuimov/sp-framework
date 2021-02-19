@@ -3,7 +3,7 @@ class SP_Framework_Woocommerce_CF{
 
 	public $args = array();
 
-	function __construct() {
+	public function __construct() {
 		$this->unset();
 		$this->add();
 		$this->show();

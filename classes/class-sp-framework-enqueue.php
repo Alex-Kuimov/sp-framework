@@ -3,7 +3,7 @@ class SP_Framework_Enqueue extends SP_Framework_Main {
 
 	public $args = array();
 
-	function __construct() {
+	public function __construct() {
 		$this->init();
 	}
 

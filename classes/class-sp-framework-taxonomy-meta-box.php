@@ -3,7 +3,7 @@ class SP_Framework_Taxonomy_Meta_Box extends SP_Framework_Main {
 
 	use SP_Framework_Meta_Data_Field;
 
-	function __construct( $taxonomy ) {
+	public function __construct( $taxonomy ) {
 		$this->init( $taxonomy );
 	}
 

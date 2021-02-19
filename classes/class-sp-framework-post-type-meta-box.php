@@ -3,7 +3,7 @@ class SP_Framework_Post_Type_Meta_Box extends SP_Framework_Main {
 
 	use SP_Framework_Meta_Data_Field;
 
-	function __construct() {
+	public function __construct() {
 		$this->init();
 	}
 

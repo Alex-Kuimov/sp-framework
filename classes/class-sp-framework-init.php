@@ -3,7 +3,7 @@ class SP_Framework_Init {
 
 	public $yaMapKey;
 
-	function __construct() {
+	public function __construct() {
 		$this->init();
 	}
 
