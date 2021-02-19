@@ -1,7 +1,7 @@
 <?php
 abstract class SP_Framework_AJAX {
 
-	function __construct( $action_name ) {
+	public function __construct( $action_name ) {
 		$this->init_hooks( $action_name );
 	}
 

@@ -1,17 +1,17 @@
 <?php
 class SP_Framework_Customizer extends SP_Framework_Main {
 
-	function __construct() {
+	public function __construct() {
 		$this->init();
 	}
 
 	private function init() {
 		add_action(
 			'customize_register',
-			function( $wpCustomize ) {
+			function( $wp_customize ) {
 				$panel = $this->args;
 
-				$wpCustomize->add_panel(
+				$wp_customize->add_panel(
 					$panel['name'],
 					array(
 						'priority'       => $panel['priority'],
@@ -33,7 +33,7 @@ class SP_Framework_Customizer extends SP_Framework_Main {
 							$description = '';
 						}
 
-						$wpCustomize->add_section(
+						$wp_customize->add_section(
 							$section['name'],
 							array(
 								'title'       => $section['title'],
@@ -46,14 +46,14 @@ class SP_Framework_Customizer extends SP_Framework_Main {
 						if ( isset( $section['fields'] ) ) {
 							foreach ( $section['fields'] as $fields ) {
 
-								$sanitizeCallback = '';
+								$sanitize_callback = '';
 
-								if ( $fields['type'] == 'input' ) {
-									$sanitizeCallback = 'sanitize_text_field';
+								if ( $fields['type'] === 'input' ) {
+									$sanitize_callback = 'sanitize_text_field';
 								}
 
-								if ( $fields['type'] == 'textarea' ) {
-									$sanitizeCallback = function( $input ) {
+								if ( $fields['type'] === 'textarea' ) {
+									$sanitize_callback = function( $input ) {
 
 										$allowed_html = array(
 											'h1'     => array(),
@@ -79,8 +79,8 @@ class SP_Framework_Customizer extends SP_Framework_Main {
 									};
 								}
 
-								if ( $fields['type'] == 'checkbox' ) {
-									$sanitizeCallback = function( $input ) {
+								if ( $fields['type'] === 'checkbox' ) {
+									$sanitize_callback = function( $input ) {
 										if ( $input == 1 ) {
 											return 1;
 										} else {
@@ -89,9 +89,9 @@ class SP_Framework_Customizer extends SP_Framework_Main {
 									};
 								}
 
-								if ( $fields['type'] == 'image' ) {
+								if ( $fields['type'] === 'image' ) {
 
-									$wpCustomize->add_setting(
+									$wp_customize->add_setting(
 										$fields['name'],
 										array(
 											'capability' => 'edit_theme_options',
@@ -100,9 +100,9 @@ class SP_Framework_Customizer extends SP_Framework_Main {
 										)
 									);
 
-									$wpCustomize->add_control(
+									$wp_customize->add_control(
 										new WP_Customize_Image_Control(
-											$wpCustomize,
+											$wp_customize,
 											$fields['name'],
 											array(
 												'label'    => $fields['label'],
@@ -114,17 +114,17 @@ class SP_Framework_Customizer extends SP_Framework_Main {
 
 								} else {
 
-									if ( isset( $fields['sanitize'] ) && $fields['sanitize'] == 'y' ) {
-										$wpCustomize->add_setting(
+									if ( isset( $fields['sanitize'] ) && $fields['sanitize'] === 'y' ) {
+										$wp_customize->add_setting(
 											$fields['name'],
 											array(
 												'capability' => 'edit_theme_options',
 												'default' => '',
-												'sanitize_callback' => $sanitizeCallback,
+												'sanitize_callback' => $sanitize_callback,
 											)
 										);
 									} else {
-										$wpCustomize->add_setting(
+										$wp_customize->add_setting(
 											$fields['name'],
 											array(
 												'capability' => 'edit_theme_options',
@@ -134,7 +134,7 @@ class SP_Framework_Customizer extends SP_Framework_Main {
 										);
 									}
 
-									$wpCustomize->add_control(
+									$wp_customize->add_control(
 										$fields['name'],
 										array(
 											'type'    => $fields['type'],

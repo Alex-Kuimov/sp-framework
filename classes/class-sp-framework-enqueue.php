@@ -3,7 +3,7 @@ class SP_Framework_Enqueue extends SP_Framework_Main {
 
 	public $args = array();
 
-	function __construct() {
+	public function __construct() {
 		$this->init();
 	}
 
@@ -17,7 +17,7 @@ class SP_Framework_Enqueue extends SP_Framework_Main {
 		add_action(
 			'wp_enqueue_scripts',
 			function() {
-				wp_enqueue_style( 'theme-style', get_stylesheet_uri() );
+				wp_enqueue_style( 'theme-style', get_stylesheet_uri(), array(), '1.0' );
 			}
 		);
 
@@ -26,9 +26,9 @@ class SP_Framework_Enqueue extends SP_Framework_Main {
 			function() {
 				$args = $this->args;
 				foreach ( $args as $key => $value ) {
-					if ( $key == 'css' ) {
+					if ( $key === 'css' ) {
 						foreach ( $value as $front ) {
-							wp_enqueue_style( $front['name'], get_template_directory_uri() . $front['path'] );
+							wp_enqueue_style( $front['name'], get_template_directory_uri() . $front['path'], array(), '1.0' );
 						}
 					}
 				}
@@ -42,11 +42,11 @@ class SP_Framework_Enqueue extends SP_Framework_Main {
 			function() {
 				$args = $this->args;
 				foreach ( $args as $key => $value ) {
-					if ( $key == 'js' ) {
+					if ( $key === 'js' ) {
 						foreach ( $value as $front ) {
-							wp_enqueue_script( $front['name'], get_template_directory_uri() . $front['path'] );
+							wp_enqueue_script( $front['name'], get_template_directory_uri() . $front['path'], array(), '1.0' );
 
-							if ( isset( $front['localize'] ) && $front['localize'] == 'y' ) {
+							if ( isset( $front['localize'] ) && $front['localize'] === 'y' ) {
 								wp_localize_script(
 									$front['name'],
 									'spJs',
@@ -57,7 +57,7 @@ class SP_Framework_Enqueue extends SP_Framework_Main {
 								);
 							}
 
-							if ( isset( $front['jquery'] ) && $front['jquery'] == 'y' ) {
+							if ( isset( $front['jquery'] ) && $front['jquery'] === 'y' ) {
 								wp_enqueue_script( 'jquery' );
 							}
 						}
@@ -73,9 +73,9 @@ class SP_Framework_Enqueue extends SP_Framework_Main {
 			function() {
 				$args = $this->args;
 				foreach ( $args as $key => $value ) {
-					if ( $key == 'url' ) {
+					if ( $key === 'url' ) {
 						foreach ( $value as $front ) {
-							echo '<script src="' . $front['path'] . '"></script>';
+							echo esc_url( '<script src="' . $front['path'] . '"></script>' );
 						}
 					}
 				}

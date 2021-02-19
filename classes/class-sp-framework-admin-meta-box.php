@@ -3,7 +3,7 @@ class SP_Framework_Admin_Meta_Box extends SP_Framework_Main {
 
 	use SP_Framework_Meta_Data_Field;
 
-	function __construct() {
+	public function __construct() {
 		$this->init();
 	}
 
@@ -77,7 +77,7 @@ class SP_Framework_Admin_Meta_Box extends SP_Framework_Main {
 
 			$fields = $args['fields'];
 
-			echo '<h1>' . $args['page_title'] . '</h1>';
+			echo esc_html( '<h1>' . $args['page_title'] . '</h1>' );
 			echo '<form method="POST" action="">';
 
 				//security_nonce
@@ -107,8 +107,8 @@ class SP_Framework_Admin_Meta_Box extends SP_Framework_Main {
 
 				echo '</table>';
 
-			echo '<input type="hidden" name="sp_save_data" value="' . $security_nonce . '">';
-			echo '<p><input type="submit" value=" ' . __( 'Save', 'spf86' ) . '" class="button-primary"/></p>';
+			echo esc_html( '<input type="hidden" name="sp_save_data" value="' . $security_nonce . '">' );
+			echo '<p><input type="submit" value=" ' . esc_html__( 'Save', 'spf86' ) . '" class="button-primary"/></p>';
 			echo '</form>';
 		}
 	}
