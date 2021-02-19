@@ -2,17 +2,17 @@
 abstract class SP_Framework_Widget_ABS extends WP_Widget {
 
 	//show widget(frontend)
-	function widget( $args, $data ) {
+	public function widget( $args, $data ) {
 		$this->get( $args, $data );
 	}
 
 	//show widget(backend)
-	function form( $data ) {
+	public function form( $data ) {
 		$this->create( $data );
 	}
 
 	//update new data
-	function update( $new_data, $old_data ) {
+	public function update( $new_data, $old_data ) {
 		$data = array();
 
 		foreach ( $new_data as $key => $value ) {
@@ -66,7 +66,7 @@ abstract class SP_Framework_Widget_ABS extends WP_Widget {
 					echo '<option value="' . $val['key'] . '">' . $val['value'] . '</option>';
 				}
 
-				if ( $i == 1 ) {
+				if ( $i === 1 ) {
 					echo '<option disabled>-------</option>';
 				}
 			}

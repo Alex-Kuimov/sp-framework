@@ -3,7 +3,7 @@ class SP_Framework_User_Meta_Box extends SP_Framework_Main {
 
 	use SP_Framework_Meta_Data_Field;
 
-	function __construct() {
+	public function __construct() {
 		$this->init();
 	}
 
@@ -24,15 +24,15 @@ class SP_Framework_User_Meta_Box extends SP_Framework_Main {
 
 		add_action(
 			'personal_options_update',
-			function( $userID ) {
-				$this->save( $userID );
+			function( $user_id ) {
+				$this->save( $user_id );
 			}
 		);
 
 		add_action(
 			'edit_user_profile_update',
-			function( $userID ) {
-				$this->save( $userID );
+			function( $user_id ) {
+				$this->save( $user_id );
 			}
 		);
 	}
@@ -72,11 +72,11 @@ class SP_Framework_User_Meta_Box extends SP_Framework_Main {
 		}
 	}
 
-	private function save( $userID ) {
-		if ( ! current_user_can( 'edit_user', $userID ) ) {
+	private function save( $user_id ) {
+		if ( ! current_user_can( 'edit_user', $user_id ) ) {
 			return false;
 		}
 
-		$this->save_data( $userID, 'user' );
+		$this->save_data( $user_id, 'user' );
 	}
 }

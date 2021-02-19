@@ -1,7 +1,7 @@
 <?php
 class SP_Framework_Taxonomy extends SP_Framework_Main {
 
-	function __construct() {
+	public function __construct() {
 		$this->init();
 	}
 

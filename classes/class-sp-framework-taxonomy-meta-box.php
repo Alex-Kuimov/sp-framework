@@ -3,7 +3,7 @@ class SP_Framework_Taxonomy_Meta_Box extends SP_Framework_Main {
 
 	use SP_Framework_Meta_Data_Field;
 
-	function __construct( $taxonomy ) {
+	public function __construct( $taxonomy ) {
 		$this->init( $taxonomy );
 	}
 
@@ -28,8 +28,8 @@ class SP_Framework_Taxonomy_Meta_Box extends SP_Framework_Main {
 
 		add_action(
 			'edited_' . $taxonomy,
-			function( $termID ) {
-				$this->save( $termID );
+			function( $term_id ) {
+				$this->save( $term_id );
 			},
 			10,
 			2
@@ -37,8 +37,8 @@ class SP_Framework_Taxonomy_Meta_Box extends SP_Framework_Main {
 
 		add_action(
 			'create_' . $taxonomy,
-			function( $termID ) {
-				$this->save( $termID );
+			function( $term_id ) {
+				$this->save( $term_id );
 			},
 			10,
 			2
@@ -48,7 +48,7 @@ class SP_Framework_Taxonomy_Meta_Box extends SP_Framework_Main {
 	private function show( $term ) {
 		$args = $this->args;
 
-		$termID = isset( $term->term_id ) ? $term->term_id : '';
+		$term_id = isset( $term->term_id ) ? $term->term_id : '';
 
 		if ( isset( $args['fields'] ) ) {
 
@@ -69,15 +69,15 @@ class SP_Framework_Taxonomy_Meta_Box extends SP_Framework_Main {
 						$field['caption'],
 						$field['default'],
 						$field['required'],
-						$termID
+						$term_id
 					);
 				}
 			}
 		}
 	}
 
-	private function save( $termID ) {
-		$this->save_data( $termID, 'term' );
+	private function save( $term_id ) {
+		$this->save_data( $term_id, 'term' );
 	}
 
 }

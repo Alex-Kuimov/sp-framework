@@ -61,13 +61,13 @@ class SP_Framework_Post_Type_Utility {
 				$counter++;
 
 				//current post id
-				$postID = $post->ID;
+				$post_id = $post->ID;
 
 				//data
-				$result[ $postID ]['cnt']   = $counter;
-				$result[ $postID ]['id']    = $postID;
-				$result[ $postID ]['title'] = get_the_title( $postID );
-				$result[ $postID ]['url']   = get_permalink( $postID );
+				$result[ $post_id ]['cnt']   = $counter;
+				$result[ $post_id ]['id']    = $post_id;
+				$result[ $post_id ]['title'] = get_the_title( $post_id );
+				$result[ $post_id ]['url']   = get_permalink( $post_id );
 
 			}
 		}
@@ -76,9 +76,9 @@ class SP_Framework_Post_Type_Utility {
 		return $result;
 	}
 
-	public static function get_content( $postID = null ) {
-		if ( ! empty( $postID ) ) {
-			$content = get_post_field( 'post_content', $postID );
+	public static function get_content( $post_id = null ) {
+		if ( ! empty( $post_id ) ) {
+			$content = get_post_field( 'post_content', $post_id );
 		} else {
 			$content = '';
 		}
@@ -86,11 +86,11 @@ class SP_Framework_Post_Type_Utility {
 		return $content;
 	}
 
-	public static function get_image( $postID, $size ) {
-		$imgID = get_post_thumbnail_id( $postID );
-		$image = wp_get_attachment_image_src( $imgID, $size );
+	public static function get_image( $post_id, $size ) {
+		$img_id = get_post_thumbnail_id( $post_id );
+		$image  = wp_get_attachment_image_src( $img_id, $size );
 
-		if ( $image[0] == '' ) {
+		if ( $image[0] === '' ) {
 			$result = plugins_url( '../assets/img/none.png', __FILE__ );
 		} else {
 			$result = esc_url( $image[0] );
@@ -99,10 +99,10 @@ class SP_Framework_Post_Type_Utility {
 		return $result;
 	}
 
-	public static function get_meta( $postID, $name ) {
-		if ( $postID && $name ) {
+	public static function get_meta( $post_id, $name ) {
+		if ( $post_id && $name ) {
 			$name  = 'sp_' . $name;
-			$value = get_post_meta( $postID, $name, true );
+			$value = get_post_meta( $post_id, $name, true );
 		} else {
 			$value = '';
 		}
@@ -121,119 +121,119 @@ class SP_Framework_Post_Type_Utility {
 		if ( ! empty( $wp_query ) ) {
 
 			if ( isset( $wp_query->query['paged'] ) ) {
-				$currentPaged = $wp_query->query['paged'];
+				$current_paged = $wp_query->query['paged'];
 			} else {
-				$currentPaged = 1;
+				$current_paged = 1;
 			}
 
 			if ( isset( $args['posts_per_page'] ) ) {
-				$postsPerPage = $args['posts_per_page'];
+				$posts_per_page = $args['posts_per_page'];
 			} else {
-				$postsPerPage = get_option( 'posts_per_page' );
+				$posts_per_page = get_option( 'posts_per_page' );
 			}
 
 			if ( isset( $wp_query->queried_object->taxonomy ) ) {
-				$currentTermID   = $wp_query->queried_object->term_id;
-				$currentTaxonomy = $wp_query->queried_object->taxonomy;
-				$paginationLink  = get_term_link( $currentTermID, $currentTaxonomy );
-				$totalPosts      = $wp_query->found_posts;
+				$current_term_id  = $wp_query->queried_object->term_id;
+				$current_taxonomy = $wp_query->queried_object->taxonomy;
+				$pagination_link  = get_term_link( $current_term_id, $current_taxonomy );
+				$total_posts      = $wp_query->found_posts;
 			} else {
 
 				if ( isset( $args['count_posts'] ) ) {
-					$totalPosts = $args['count_posts'];
+					$total_posts = $args['count_posts'];
 				} else {
-					$totalPosts = $wp_query->found_posts;
+					$total_posts = $wp_query->found_posts;
 				}
 
 				if ( isset( $args['page'] ) ) {
-					$paginationLink = get_home_url() . '/' . $args['page'] . '/';
+					$pagination_link = get_home_url() . '/' . $args['page'] . '/';
 				} else {
-					$paginationLink = get_home_url() . '/';
+					$pagination_link = get_home_url() . '/';
 				}
 			}
 
-			$paginationCount = ceil( $totalPosts / $postsPerPage );
+			$pagination_count = ceil( $total_posts / $posts_per_page );
 
-			$paramGET = '';
+			$param_get = '';
 			if ( isset( $_GET ) && ! empty( $_GET ) ) {
-				$arrayGET  = $_GET;
-				$paramGET .= '?';
-				foreach ( $arrayGET  as $key => $value ) {
-					$paramGET .= $key . '=' . $value . '&';
+				$array_get = $_GET;
+				$param_get = '?';
+				foreach ( $array_get  as $key => $value ) {
+					$param_get .= $key . '=' . $value . '&';
 				}
 			}
 
 			if ( isset( $args['range'] ) ) {
-				$range        = (int) $args['range'] - 1;
-				$rangeDefault = (int) $args['range'] - 1;
+				$range         = (int) $args['range'] - 1;
+				$range_default = (int) $args['range'] - 1;
 			} else {
-				$range        = 5;
-				$rangeDefault = 5;
+				$range         = 5;
+				$range_default = 5;
 			}
 
 			if ( isset( $args['start_link_title'] ) ) {
-				if ( $currentPaged == 1 ) {
-					$startLink = '<span>' . $args['start_link_title'] . '</span>';
+				if ( $current_paged === 1 ) {
+					$start_link = '<span>' . $args['start_link_title'] . '</span>';
 				} else {
-					$startLink = '<a href="' . $paginationLink . '' . $paramGET . '">' . $args['start_link_title'] . '</a>';
+					$start_link = '<a href="' . $pagination_link . '' . $param_get . '">' . $args['start_link_title'] . '</a>';
 				}
 			} else {
-				$startLink = '';
+				$start_link = '';
 			}
 
 			if ( isset( $args['start_link_title'] ) ) {
-				if ( $currentPaged == $paginationCount ) {
-					$endLink = '<span>' . $args['end_link_title'] . '</span>';
+				if ( $current_paged === $pagination_count ) {
+					$end_link = '<span>' . $args['end_link_title'] . '</span>';
 				} else {
-					$endLink = '<a href="' . $paginationLink . 'page/' . $paginationCount . '/' . $paramGET . '">' . $args['end_link_title'] . '</a>';
+					$end_link = '<a href="' . $pagination_link . 'page/' . $pagination_count . '/' . $param_get . '">' . $args['end_link_title'] . '</a>';
 				}
 			} else {
-				$endLink = '';
+				$end_link = '';
 			}
 
 			$result = '';
 
-			if ( $totalPosts > $postsPerPage ) {
+			if ( $total_posts > $posts_per_page ) {
 
 				if ( isset( $args['wrapper_start'] ) ) {
 					$result .= $args['wrapper_start'];
 				}
 
-				$result .= $startLink;
+				$result .= $start_link;
 
-				for ( $i = 1; $i <= $paginationCount; $i++ ) {
+				for ( $i = 1; $i <= $pagination_count; $i++ ) {
 
-					if ( $currentPaged == 1 ) {
-						$range = $rangeDefault + 1;
+					if ( $current_paged === 1 ) {
+						$range = $range_default + 1;
 					}
 
-					if ( $i <= $range + $currentPaged - 1 ) {
+					if ( $i <= $range + $current_paged - 1 ) {
 
-						if ( $range + $currentPaged <= $paginationCount ) {
+						if ( $range + $current_paged <= $pagination_count ) {
 
-							if ( $i >= $currentPaged - 1 ) {
+							if ( $i >= $current_paged - 1 ) {
 
-								if ( $i == $currentPaged ) {
+								if ( $i === $current_paged ) {
 									$result .= '<span>' . $i . '</span>';
 								} else {
-									$result .= '<a href="' . $paginationLink . 'page/' . $i . '/' . $paramGET . '">' . $i . '</a>';
+									$result .= '<a href="' . $pagination_link . 'page/' . $i . '/' . $param_get . '">' . $i . '</a>';
 								}
 							}
 						} else {
 
-							if ( $i >= $paginationCount - $range ) {
+							if ( $i >= $pagination_count - $range ) {
 
-								if ( $i == $currentPaged ) {
+								if ( $i === $current_paged ) {
 									$result .= '<span>' . $i . '</span>';
 								} else {
-									$result .= '<a href="' . $paginationLink . 'page/' . $i . '/' . $paramGET . '">' . $i . '</a>';
+									$result .= '<a href="' . $pagination_link . 'page/' . $i . '/' . $param_get . '">' . $i . '</a>';
 								}
 							}
 						}
 					}
 				}
 
-				$result .= $endLink;
+				$result .= $end_link;
 
 				if ( isset( $args['total'] ) && isset( $args['total'] ) == 'y' ) {
 
@@ -241,13 +241,13 @@ class SP_Framework_Post_Type_Utility {
 						$result .= $args['wrapper_total_start'];
 					}
 
-					$result .= '<span>' . $currentPaged;
+					$result .= '<span>' . $current_paged;
 
 					if ( isset( $args['total_separator'] ) ) {
 						$result .= $args['total_separator'];
 					}
 
-					$result .= $paginationCount . '</span>';
+					$result .= $pagination_count . '</span>';
 
 					if ( isset( $args['wrapper_total_end'] ) ) {
 						$result .= $args['wrapper_total_end'];

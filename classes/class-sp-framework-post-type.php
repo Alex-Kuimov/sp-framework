@@ -1,7 +1,7 @@
 <?php
 class SP_Framework_Post_Type extends SP_Framework_Main {
 
-	function __construct() {
+	public function __construct() {
 		$this->init();
 	}
 
@@ -103,11 +103,11 @@ class SP_Framework_Post_Type extends SP_Framework_Main {
 			function( $template ) {
 				$data = $this->args;
 
-				if ( isset( $data['hidden'] ) && $data['hidden'] == 'y' ) {
-					$currentId       = get_the_ID();
-					$currentPostType = get_post_type( $currentId );
+				if ( isset( $data['hidden'] ) && $data['hidden'] === 'y' ) {
+					$current_id       = get_the_ID();
+					$current_post_type = get_post_type( $current_id );
 
-					if ( $currentPostType == $data['name'] ) {
+					if ( $current_post_type === $data['name'] ) {
 						wp_redirect( get_home_url() . '/404.php' );
 						exit;
 					}
