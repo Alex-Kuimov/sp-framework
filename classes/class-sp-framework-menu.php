@@ -1,38 +1,37 @@
 <?php
 class SP_Framework_Menu {
 
-	public static function get( $menuName ) {
+	public static function get( $menu_name ) {
 		$locations = get_nav_menu_locations();
-		$menuList  = array();
+		$menu_list = array();
 
-		if ( $locations && isset( $locations[ $menuName ] ) ) {
-			$menu      = wp_get_nav_menu_object( $locations[ $menuName ] );
-			$menuItems = wp_get_nav_menu_items( $menu );
+		if ( $locations && isset( $locations[ $menu_name ] ) ) {
+			$menu       = wp_get_nav_menu_object( $locations[ $menu_name ] );
+			$menu_items = wp_get_nav_menu_items( $menu );
 
-			$parentID = '';
-			foreach ( $menuItems as $key => $menuItem ) {
+			foreach ( $menu_items as $key => $menu_item ) {
 
-				$menuList[ $menuItem->ID ]['id']            = $menuItem->ID;
-				$menuList[ $menuItem->ID ]['title']         = $menuItem->title;
-				$menuList[ $menuItem->ID ]['url']           = $menuItem->url;
-				$menuList[ $menuItem->ID ]['attr_title']    = $menuItem->attr_title;
-				$menuList[ $menuItem->ID ]['class']         = $menuItem->classes[0];
-				$menuList[ $menuItem->ID ]['parent']        = $menuItem->menu_item_parent;
-				$menuList[ $menuItem->ID ]['have_children'] = '';
+				$menu_list[ $menu_item->ID ]['id']            = $menu_item->ID;
+				$menu_list[ $menu_item->ID ]['title']         = $menu_item->title;
+				$menu_list[ $menu_item->ID ]['url']           = $menu_item->url;
+				$menu_list[ $menu_item->ID ]['attr_title']    = $menu_item->attr_title;
+				$menu_list[ $menu_item->ID ]['class']         = $menu_item->classes[0];
+				$menu_list[ $menu_item->ID ]['parent']        = $menu_item->menu_item_parent;
+				$menu_list[ $menu_item->ID ]['have_children'] = '';
 
 			}
 		}
 
-		foreach ( $menuList as $menuItem ) {
-			if ( $menuItem['parent'] == 0 ) {
-				$key = array_search( $menuItem['id'], array_column( $menuList, 'parent' ) );
+		foreach ( $menu_list as $menu_item ) {
+			if ( $menu_item['parent'] == 0 ) {
+				$key = array_search( $menu_item['id'], array_column( $menu_list, 'parent' ) );
 				if ( $key ) {
-					$menuList[ $menuItem['id'] ]['have_children'] = 'y';
+					$menu_list[ $menu_item['id'] ]['have_children'] = 'y';
 				}
 			}
 		}
 
-		return $menuList;
+		return $menu_list;
 	}
 
 }

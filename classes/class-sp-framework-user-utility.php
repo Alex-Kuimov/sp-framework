@@ -67,18 +67,18 @@ class SP_Framework_User_Utility {
 				foreach ( $users as $user ) {
 
 					$index++;
-					$userID = $user->ID;
+					$user_id = $user->ID;
 
 					//data
-					$result[ $userID ]['cnt']        = $index;
-					$result[ $userID ]['id']         = $userID;
-					$result[ $userID ]['login']      = $user->user_login;
-					$result[ $userID ]['nicename']   = $user->user_nicename;
-					$result[ $userID ]['email']      = $user->user_email;
-					$result[ $userID ]['url']        = $user->user_url;
-					$result[ $userID ]['registered'] = $user->user_registered;
-					$result[ $userID ]['status']     = $user->user_status;
-					$result[ $userID ]['name']       = $user->display_name;
+					$result[ $user_id ]['cnt']        = $index;
+					$result[ $user_id ]['id']         = $user_id;
+					$result[ $user_id ]['login']      = $user->user_login;
+					$result[ $user_id ]['nicename']   = $user->user_nicename;
+					$result[ $user_id ]['email']      = $user->user_email;
+					$result[ $user_id ]['url']        = $user->user_url;
+					$result[ $user_id ]['registered'] = $user->user_registered;
+					$result[ $user_id ]['status']     = $user->user_status;
+					$result[ $user_id ]['name']       = $user->display_name;
 				}
 			}
 		}

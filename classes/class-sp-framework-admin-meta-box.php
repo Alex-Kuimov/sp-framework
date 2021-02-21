@@ -80,10 +80,10 @@ class SP_Framework_Admin_Meta_Box extends SP_Framework_Main {
 			echo '<h1>' . $args['page_title'] . '</h1>';
 			echo '<form method="POST" action="">';
 
-				//security_nonce
-				$spSecurityNonce = wp_create_nonce( 'sp_security_nonce' );
+			//security_nonce
+			$security_nonce = wp_create_nonce( 'sp_security_nonce' );
 
-				echo '<table class="form-table">';
+			echo '<table class="form-table">';
 
 			foreach ( $fields as $field ) {
 				if ( isset( $field['type'] ) &&
@@ -105,9 +105,9 @@ class SP_Framework_Admin_Meta_Box extends SP_Framework_Main {
 				}
 			}
 
-				echo '</table>';
+			echo '</table>';
 
-			echo '<input type="hidden" name="sp_save_data" value="' . $spSecurityNonce . '">';
+			echo '<input type="hidden" name="sp_save_data" value="' . $security_nonce . '">';
 			echo '<p><input type="submit" value=" ' . __( 'Save', 'spf86' ) . '" class="button-primary"/></p>';
 			echo '</form>';
 		}

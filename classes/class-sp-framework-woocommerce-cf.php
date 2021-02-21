@@ -87,15 +87,15 @@ class SP_Framework_Woocommerce_CF{
 			'woocommerce_admin_order_data_after_order_details',
 			function( $order ) {
 
-				$data    = $this->args;
-				$orderID = $order->get_id();
+				$data     = $this->args;
+				$order_id = $order->get_id();
 
 				if ( isset( $data['action'] ) && $data['action'] == 'add' ) {
 					if ( isset( $data['fields'] ) ) {
 						$fields = $data['fields'];
 						foreach ( $fields as $field ) {
 							$meta = 'sp_' . $field['name'];
-							echo '<p class="form-field form-field-wide wc-customer-user"><strong>' . $field['label'] . ':</strong> ' . get_post_meta( $orderID, $meta, true ) . '</p>';
+							echo '<p class="form-field form-field-wide wc-customer-user"><strong>' . $field['label'] . ':</strong> ' . get_post_meta( $order_id, $meta, true ) . '</p>';
 						}
 					}
 				}
@@ -109,12 +109,12 @@ class SP_Framework_Woocommerce_CF{
 	private function save() {
 		add_action(
 			'woocommerce_checkout_update_order_meta',
-			function( $orderID ) {
+			function( $order_id ) {
 				foreach ( $_POST as $key => $value ) {
 					$pos = strpos( $key, 'sp_' );
 
 					if ( $pos !== false ) {
-						update_post_meta( $orderID, $key, $value );
+						update_post_meta( $order_id, $key, $value );
 					}
 				}
 			}
