@@ -79,15 +79,15 @@ class SP_Framework_Taxonomy_Utility {
 					//counter increment
 					$counter++;
 
-					$termID = $term->term_id;
+					$term_id = $term->term_id;
 
-					$result[ $termID ]['cnt']         = $counter;
-					$result[ $termID ]['id']          = $termID;
-					$result[ $termID ]['parent']      = $term->parent;
-					$result[ $termID ]['name']        = $term->name;
-					$result[ $termID ]['title']       = $term->name;
-					$result[ $termID ]['description'] = $term->description;
-					$result[ $termID ]['url']         = get_term_link( $termID );
+					$result[ $term_id ]['cnt']         = $counter;
+					$result[ $term_id ]['id']          = $term_id;
+					$result[ $term_id ]['parent']      = $term->parent;
+					$result[ $term_id ]['name']        = $term->name;
+					$result[ $term_id ]['title']       = $term->name;
+					$result[ $term_id ]['description'] = $term->description;
+					$result[ $term_id ]['url']         = get_term_link( $term_id );
 
 				}
 			}
@@ -123,7 +123,6 @@ class SP_Framework_Taxonomy_Utility {
 
 		return $result;
 	}
-
 
 	public static function update_meta( $id, $name, $value ) {
 		if ( $id && $name && $value ) {

@@ -1,7 +1,7 @@
 <?php
 class SP_Framework_Init {
 
-	public $yaMapKey;
+	public $ya_map_key;
 
 	public function __construct() {
 		$this->init();
@@ -30,12 +30,12 @@ class SP_Framework_Init {
 	}
 
 	public function ya_map( $key = null ) {
-		$this->yaMapKey = $key;
+		$this->ya_map_key = $key;
 
 		add_action(
 			'admin_enqueue_scripts',
 			function() {
-				$key = $this->yaMapKey;
+				$key = $this->ya_map_key;
 				if ( ! empty( $key ) ) {
 					echo '<script src="https://api-maps.yandex.ru/2.1/?apikey=' . $key . '&lang=ru_RU"></script>';
 				}

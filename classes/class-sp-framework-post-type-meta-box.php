@@ -66,17 +66,16 @@ class SP_Framework_Post_Type_Meta_Box extends SP_Framework_Main {
 	private function save() {
 		add_action(
 			'save_post',
-			function( $postID ) {
-				$postType = get_post_type( $postID );
+			function( $post_id ) {
+				$post_type = get_post_type( $post_id );
 
 				if ( isset( $this->args['post_type'] ) ) {
-					if ( $postType == strtolower( $this->args['post_type'] ) ) {
+					if ( $post_type == strtolower( $this->args['post_type'] ) ) {
 						if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
 							return;
 						}
 
-						$this->save_data( $postID, 'post' );
-
+						$this->save_data( $post_id, 'post' );
 					}
 				}
 			}

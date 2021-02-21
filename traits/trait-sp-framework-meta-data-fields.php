@@ -3,7 +3,7 @@ trait SP_Framework_Meta_Data_Field {
 
 	private function add_field( $type, $name, $label, $caption, $default, $required, $id ) {
 
-		$calledClass = get_called_class();
+		$called_class = get_called_class();
 
 		//name with pref
 		if ( $type == 'images' ) {
@@ -35,11 +35,11 @@ trait SP_Framework_Meta_Data_Field {
 
 			if ( $type == 'images' ) {
 
-				$addTitle    = __( 'Add image(s)', 'spf86' );
-				$changeTitle = __( 'Change image', 'spf86' );
-				$removeTitle = __( 'Remove', 'spf86' );
+				$add_title    = __( 'Add image(s)', 'spf86' );
+				$change_title = __( 'Change image', 'spf86' );
+				$remove_title = __( 'Remove', 'spf86' );
 
-				echo '<p><a href="#" class="sp-add-image button" data-id="' . $name . '" data-uploader-title="' . $addTitle . '" data-uploader-button-text="' . $addTitle . '">' . $addTitle . '</a></p>';
+				echo '<p><a href="#" class="sp-add-image button" data-id="' . $name . '" data-uploader-title="' . $add_title . '" data-uploader-button-text="' . $add_title . '">' . $add_title . '</a></p>';
 			}
 
 			echo '</th>';
@@ -96,7 +96,7 @@ trait SP_Framework_Meta_Data_Field {
 			echo '<input type="hidden" name="' . $name . '" id="id_' . $name . '_hd" class="cl_' . $name . '_hd" value="' . $value . '">';
 			echo '<input type="checkbox" id="id_' . $name . '" class="cl_' . $name . ' sp-field-checkbox" data-value="y" ' . $chk . ' ' . $required . '>';
 
-			if ( $calledClass == 'SP_Framework_Post_Type_Meta_Box' ) {
+			if ( $called_class == 'SP_Framework_Post_Type_Meta_Box' ) {
 				echo '<label for="id_' . $name . '">' . $label . '</label>';
 			}
 
@@ -110,7 +110,7 @@ trait SP_Framework_Meta_Data_Field {
 			echo '<table class="form-table">';
 			echo '<tr><td>';
 
-			echo '<ul class="sp-gallery-metabox-list" id="id_' . $name . '" data-name="' . $name . '" data-change="' . $changeTitle . '" data-remove="' . $removeTitle . '">';
+			echo '<ul class="sp-gallery-metabox-list" id="id_' . $name . '" data-name="' . $name . '" data-change="' . $change_title . '" data-remove="' . $remove_title . '">';
 
 			if ( $images && $images[0] != '' ) {
 				foreach ( $images as $key => $val ) {
@@ -118,10 +118,10 @@ trait SP_Framework_Meta_Data_Field {
 					echo '<li>';
 					echo '<input type="hidden" name="' . $name . '[' . $key . ']" value="' . $val . '">';
 					echo '<img class="sp-image-preview" src="' . $image[0] . '">';
-					echo '<a class="sp-change-image button button-small" href="#" data-uploader-title="' . $changeTitle . '" data-uploader-button-text="' . $changeTitle . '">';
-					echo $changeTitle;
+					echo '<a class="sp-change-image button button-small" href="#" data-uploader-title="' . $change_title . '" data-uploader-button-text="' . $change_title . '">';
+					echo $change_title;
 					echo '</a><br>';
-					echo '<small><a class="sp-remove-image" data-id="' . $name . '" href="#">' . $removeTitle . '</a></small>';
+					echo '<small><a class="sp-remove-image" data-id="' . $name . '" href="#">' . $remove_title . '</a></small>';
 					echo '</li>';
 				}
 			}
@@ -156,18 +156,18 @@ trait SP_Framework_Meta_Data_Field {
 	}
 
 	private function get_meta( $id, $name ) {
-		$calledClass = get_called_class();
+		$called_class = get_called_class();
 
-		if ( $calledClass == 'SP_Framework_Post_Type_Meta_Box' ) {
+		if ( $called_class == 'SP_Framework_Post_Type_Meta_Box' ) {
 			$value = get_post_meta( $id, $name, true );
 		}
-		if ( $calledClass == 'SP_Framework_Taxonomy_Meta_Box' ) {
+		if ( $called_class == 'SP_Framework_Taxonomy_Meta_Box' ) {
 			$value = get_term_meta( $id, $name, true );
 		}
-		if ( $calledClass == 'SP_Framework_User_Meta_Box' ) {
+		if ( $called_class == 'SP_Framework_User_Meta_Box' ) {
 			$value = get_the_author_meta( $name, $id );
 		}
-		if ( $calledClass == 'SP_Framework_Admin_Meta_Box' ) {
+		if ( $called_class == 'SP_Framework_Admin_Meta_Box' ) {
 			$value = get_option( $name );
 		}
 
