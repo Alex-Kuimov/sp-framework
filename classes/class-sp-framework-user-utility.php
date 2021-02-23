@@ -1,10 +1,10 @@
 <?php
-class SP_Framework_User_Utility{
+class SP_Framework_User_Utility {
 
-	static public function get_list($data = null){
+	public static function get_list( $data = null ) {
 		$result = array();
 
-		if($data){
+		if ( $data ) {
 
 			//default value
 			$values = array(
@@ -26,13 +26,13 @@ class SP_Framework_User_Utility{
 				'count_total'  => false,
 				'fields'       => 'all',
 				'who'          => '',
-				'date_query'   => array()
-			); 
+				'date_query'   => array(),
+			);
 
 			//set custom value
-			foreach ($values as $key => $value) {
-				if (array_key_exists($key, $data)) {
-					$values[$key] = $data[$key];
+			foreach ( $values as $key => $value ) {
+				if ( array_key_exists( $key, $data ) ) {
+					$values[ $key ] = $data[ $key ];
 				}
 			}
 
@@ -56,29 +56,29 @@ class SP_Framework_User_Utility{
 				'count_total'  => $values['count_total'],
 				'fields'       => $values['fields'],
 				'who'          => $values['who'],
-				'date_query'   => $values['date_query']
+				'date_query'   => $values['date_query'],
 			);
 
-			$users = get_users($args);
+			$users = get_users( $args );
 
-			if(!empty($users)){
+			if ( ! empty( $users ) ) {
 				$index = 0;
 
-				foreach ($users as $user) {
+				foreach ( $users as $user ) {
 
 					$index++;
-					$userID = $user->ID;
+					$user_id = $user->ID;
 
 					//data
-					$result[$userID]['cnt'] 		= $index;
-					$result[$userID]['id'] 			= $userID;
-					$result[$userID]['login'] 		= $user->user_login;
-					$result[$userID]['nicename'] 	= $user->user_nicename;
-					$result[$userID]['email'] 		= $user->user_email;
-					$result[$userID]['url'] 		= $user->user_url;
-					$result[$userID]['registered'] 	= $user->user_registered;
-					$result[$userID]['status'] 		= $user->user_status;
-					$result[$userID]['name'] 		= $user->display_name;
+					$result[ $user_id ]['cnt']        = $index;
+					$result[ $user_id ]['id']         = $user_id;
+					$result[ $user_id ]['login']      = $user->user_login;
+					$result[ $user_id ]['nicename']   = $user->user_nicename;
+					$result[ $user_id ]['email']      = $user->user_email;
+					$result[ $user_id ]['url']        = $user->user_url;
+					$result[ $user_id ]['registered'] = $user->user_registered;
+					$result[ $user_id ]['status']     = $user->user_status;
+					$result[ $user_id ]['name']       = $user->display_name;
 				}
 			}
 		}
@@ -86,22 +86,22 @@ class SP_Framework_User_Utility{
 		return $result;
 	}
 
-	static public function get_meta($id, $name){
-		if($id && $name){
-			$name = 'sp_'.$name;
-			$value = get_the_author_meta($name, $id);
+	public static function get_meta( $id, $name ) {
+		if ( $id && $name ) {
+			$name  = 'sp_' . $name;
+			$value = get_the_author_meta( $name, $id );
 		} else {
 			$value = '';
-		}	
+		}
 
 		return $value;
 	}
 
-	static public function update_meta($id, $name, $value){
-		if($id && $name && $value){
-			$name = 'sp_'.$name;
-			update_user_meta($id, $name, $value);
-		}	
+	public static function update_meta( $id, $name, $value ) {
+		if ( $id && $name && $value ) {
+			$name = 'sp_' . $name;
+			update_user_meta( $id, $name, $value );
+		}
 	}
 
 }

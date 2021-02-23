@@ -8,7 +8,7 @@ jQuery(document).ready(($) => {
 
 	let spMetaBox = {
 		actions: function(){
-			
+
 			window.onload = function() {
 				spMetaBox.makeSortable();
 			}
@@ -33,9 +33,9 @@ jQuery(document).ready(($) => {
 			if (fileFrame) fileFrame.close();
 
 			let fieldName 	= $('#id_'+elID).attr('data-name'),
-			 	changeTitle = $('#id_'+elID).attr('data-change'),
+				changeTitle = $('#id_'+elID).attr('data-change'),
 				removeTitle = $('#id_'+elID).attr('data-remove');
-			
+
 			fileFrame = wp.media.frames.fileFrame = wp.media({
 				title: $(this).data('uploader-title'),
 				button: {
@@ -109,7 +109,7 @@ jQuery(document).ready(($) => {
 
 			return false;
 		},
-		
+
 		makeSortable: function(){
 			if($('.sp-gallery-metabox-list').length > 0){
 				$('.sp-gallery-metabox-list').sortable({
@@ -117,7 +117,7 @@ jQuery(document).ready(($) => {
 				});
 			}
 		},
-		
+
 		init: function(){
 			spMetaBox.actions();
 		},
@@ -130,38 +130,38 @@ jQuery(document).ready(($) => {
 
 				let address = document.getElementById('id_'+itemID).value,
 					map 	= mapList[itemID+'_map'];
-				
+
 				if(address != ''){
 					ymaps.geocode(address, {
-				        results: 1
-				    }).then(function (res) {
+						results: 1
+					}).then(function (res) {
 
-				    	map.geoObjects.removeAll();
-						
-				    	let first 	= res.geoObjects.get(0),
-			            	coords 	= first.geometry.getCoordinates(),
+						map.geoObjects.removeAll();
+
+						let first 	= res.geoObjects.get(0),
+							coords 	= first.geometry.getCoordinates(),
 							marker 	= new ymaps.Placemark(coords, {}, {draggable: true });
 
 						document.getElementById('id_'+itemID+'_coords').value = coords;
-						
+
 						map.geoObjects.add(marker);
 						marker.options.set('preset', 'islands#redIcon');
-						                   
+
 						marker.events.add("dragend", function (e) {
-						    coords = this.geometry.getCoordinates();
-						    document.getElementById('id_'+itemID+'_coords').value = coords;
+							coords = this.geometry.getCoordinates();
+							document.getElementById('id_'+itemID+'_coords').value = coords;
 						}, marker);
 
 						map.setBounds(map.geoObjects.getBounds(), {
-						    checkZoomRange: true,
-						    zoomMargin: 35
+							checkZoomRange: true,
+							zoomMargin: 35
 						});
 
-				    });
+					});
 				}
 
-			});	
-		}, 
+			});
+		},
 
 		initMap: function(){
 			ymaps.ready(function(){
@@ -172,36 +172,36 @@ jQuery(document).ready(($) => {
 					let itemID 	= item.getAttribute('id'),
 						name 	= item.getAttribute('data-name');
 
-					
+
 					mapList[itemID] = new ymaps.Map(itemID, {
-				        center: [0, 0],
-				        zoom: 12,
-				    });
-					
+						center: [0, 0],
+						zoom: 12,
+					});
+
 					let coords 	= document.getElementById('id_'+name+'_coords').value.split(',');
 
 					if(coords!=''){
 
-					    let	marker 	= new ymaps.Placemark(coords, {}, {draggable: true }),
-					    	map 	= mapList[itemID];
+						let	marker 	= new ymaps.Placemark(coords, {}, {draggable: true }),
+							map 	= mapList[itemID];
 
-					   	map.geoObjects.add(marker);
-					    marker.options.set('preset', 'islands#redIcon');
-					                       
-					    marker.events.add("dragend", function (e) {
-					        coords = this.geometry.getCoordinates();
-					        document.getElementById('id_'+name+'_coords').value = coords;
+						map.geoObjects.add(marker);
+						marker.options.set('preset', 'islands#redIcon');
 
-					    }, marker);
+						marker.events.add("dragend", function (e) {
+							coords = this.geometry.getCoordinates();
+							document.getElementById('id_'+name+'_coords').value = coords;
 
-					    map.setBounds(map.geoObjects.getBounds(), {
-					        checkZoomRange: true,
-					        zoomMargin: 35
-					    }); 
-					}      
+						}, marker);
+
+						map.setBounds(map.geoObjects.getBounds(), {
+							checkZoomRange: true,
+							zoomMargin: 35
+						});
+					}
 				}
-				
-			});	
+
+			});
 		},
 
 		init: function() {
@@ -209,15 +209,15 @@ jQuery(document).ready(($) => {
 				let target 		= event.target,
 					classList 	= target.getAttribute('class');
 
-				if(classList.includes('sp-add-marker') !== null){	
+				if(classList.includes('sp-add-marker') !== null){
 
-					if(classList.includes('sp-add-marker')){ 
+					if(classList.includes('sp-add-marker')){
 						let itemID = target.getAttribute('data-id');
 						spAdminYandexMap.addMarker(itemID);
 					}
-				}	
-				
-	 		});
+				}
+
+			});
 			spAdminYandexMap.initMap();
 		}
 	}
